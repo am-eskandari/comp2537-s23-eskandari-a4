@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokemon Matching Game</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container mt-4">
+    <div class="jumbotron text-center">
+      <h1 class="display-4">Pokemon Matching Game</h1>
+      <p id="totalPairs" class="lead"></p>
+      <p id="matchPairs" class="lead"></p>
+      <p id="pairsLeft" class="lead"></p>
+      <p id="numClicks" class="lead"></p>
+      <p id="timer" class="lead"></p>
+      <hr class="my-4">
+      <button id="startBtn" class="btn btn-primary btn-lg" type="button">Start</button>
+      <button id="resetBtn" class="btn btn-secondary btn-lg" type="button">Reset</button>
+    </div>
+
+    <div class="button-container">
+      <div class="btn-group">
+        <button id="theme1" class="btn btn-primary">Theme 1</button>
+        <button id="theme2" class="btn btn-primary">Theme 2</button>
+        <button id="theme3" class="btn btn-primary">Theme 3</button>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="difficultySelect" id="difficultyLabel">Select Difficulty</label>
+      <select class="form-control" id="difficultySelect">
+        <option value="3">Easy</option>
+        <option value="6">Normal</option>
+        <option value="9">Hard</option>
+      </select>
+    </div>
+
+    <div id="game_grid" class="d-flex flex-wrap justify-content-center"></div>
+  </div>
+
+  <!-- Try Again Modal -->
+  <div class="modal" tabindex="-1" role="dialog" id="tryAgainModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Time's Up!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>You weren't able to find all the matches. Try again?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="tryAgainButton">Try Again</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery and Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
