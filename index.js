@@ -10,6 +10,11 @@ let timerInterval = null; // variable to hold the timer interval
 
 let flipBackTimeoutId = null;
 
+let firstCard = undefined;
+let secondCard = undefined;
+let isFlipping = false;
+
+
 
 // Display initial game stats
 $("#totalPairs").text(`Total Number of Pairs: ${numPairs}`);
@@ -38,19 +43,24 @@ function revealCardsTemporarily() {
 
   if (flipBackTimeoutId) {
     clearTimeout(flipBackTimeoutId);
-    firstCard = secondCard = undefined;
-    isFlipping = false;
     flipBackTimeoutId = null;
   }
 
-  $(".flip:not(.matched)").removeClass("flip");
+  let cardsToFlipBack = $(".card:not(.matched)"); // Keep track of the cards to flip back
+  cardsToFlipBack.removeClass("flip");
 
   setTimeout(() => {
-    $(".card:not(.matched)").addClass("flip");
+    cardsToFlipBack.each(function () {
+      if (!$(this).hasClass("matched")) {
+        $(this).addClass("flip");
+      }
+    });
+
+    // Reset firstCard and secondCard and isFlipping
+    firstCard = secondCard = undefined;
+    isFlipping = false;
   }, 1000);
 }
-
-
 
 
 const setup = async () => {
@@ -59,11 +69,6 @@ const setup = async () => {
   // Update game stats here after adjusting card size
   $("#totalPairs").text(`Total Number of Pairs: ${numPairs}`);
   $("#pairsLeft").text(`Number of Pairs Left: ${numPairs}`);
-
-  let firstCard = undefined;
-  let secondCard = undefined;
-  let isFlipping = false;
-
 
   const pokemons = await fetchRandomPokemons(numPairs);
   let cards = []; // Create an array to hold all cards
@@ -92,7 +97,7 @@ const setup = async () => {
   adjustCardSize(); // Call adjustCardSize function here again
 
 
-  $(".card").on(("click"), function () {
+  $(".card").on("click", function () {
     if (isFlipping) return;
 
     const currentCard = $(this).find(".front_face")[0];
@@ -102,6 +107,7 @@ const setup = async () => {
     numClicks++;
     $("#numClicks").text(`Number of Clicks: ${numClicks}`);
 
+    // Always remove the flip class when a card is clicked
     $(this).removeClass("flip");
 
     if (!firstCard) {
@@ -134,6 +140,7 @@ const setup = async () => {
       } else {
         console.log("no match");
         flipBackTimeoutId = setTimeout(() => {
+          // Add the flip class back only when there is no match
           $(`#${firstCard.id}`).parent().addClass("flip");
           $(`#${secondCard.id}`).parent().addClass("flip");
 
