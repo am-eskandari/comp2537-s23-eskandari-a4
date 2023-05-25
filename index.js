@@ -212,9 +212,16 @@ const resetGame = () => {
   $("#difficultyLabel").css("visibility", "visible");
 
   $("#game_grid").css("display", "none");
+
+  // Reset the game stats
+  $("#totalPairs").text(`Total Number of Pairs: ${numPairs}`);
+  $("#pairsLeft").text(`Number of Pairs Left: ${numPairs}`);
+  $("#numClicks").text(`Number of Clicks: ${numClicks}`);
+  $("#matchPairs").text(`Number of Matches: ${numMatchedPairs}`);
 };
 
 $("#resetBtn").on("click", resetGame); // Call resetGame function when reset button is clicked
+
 
 
 
